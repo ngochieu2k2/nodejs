@@ -1,0 +1,29 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   "start":"nodemon --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngochieu2k2/nodejs.git"
+  },
+  "keywords": [
+    "web",
+    "sach"
+  ],
+  "author": "vo ngoc hieu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngochieu2k2/nodejs/issues"
+  },
+  "homepage": "https://github.com/ngochieu2k2/nodejs#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
