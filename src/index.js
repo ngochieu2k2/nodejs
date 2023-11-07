@@ -1,13 +1,13 @@
-import path from 'path'
+// import path from 'path'
 import express  from 'express'
 import morgan  from 'morgan'
 import { engine } from 'express-handlebars'
 const app = express()
 const port = 3000
 
-app.use(express.static(path.join(__dirname, 'public')))
+// app.use(express.static(path.join(__dirname, './public')))
 app.use(morgan('combined'))
-
+app.use(express.static('src/public'))
 //template engine 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
