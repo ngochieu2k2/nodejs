@@ -38,6 +38,10 @@ app.get('/admin/product', (req, res) => {
   res.render('admin/product',{layout:"admin"});
 })
 
+app.get('/admin/product/detail/:isbn', (req, res) => {
+  res.render('admin/detailadmin',{layout:"admin"});
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on http://localhost:${port}`)
 })
