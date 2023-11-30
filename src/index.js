@@ -1,5 +1,6 @@
 import path from 'path'
 import express  from 'express'
+import booskrouter from "./routes/product.js"
 import morgan  from 'morgan'
 import { engine } from 'express-handlebars'
 import { fileURLToPath } from 'url'
@@ -19,6 +20,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname,'resources/view'));
 
 
+app.use("/api/books",booskrouter)
 
 app.get('/', (req, res) => {
      res.render('home');
@@ -30,6 +32,10 @@ app.get('/detail', (req, res) => {
 
 app.get('/admin', (req, res) => {
   res.render('admin/home',{layout:"admin"});
+})
+
+app.get('/admin/product', (req, res) => {
+  res.render('admin/product',{layout:"admin"});
 })
 
 app.listen(port, () => {
