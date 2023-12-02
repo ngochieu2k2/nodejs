@@ -56,86 +56,19 @@
   <h2>The books are here <i class="fa-solid fa-arrow-down"></i></h2>
 
 
-  <div class="row" style="margin-top: 30px;">
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <a href="./detail"><img src="./images/books.jpg" alt=""></a>
-        <div class="card-body">
-          <h3>sách lập trình cơ bản</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p>$20 <i class="fa-solid fa-credit-card"></i></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="./images/sach-hoc-lap-trinh.jpg" alt="">
-        <div class="card-body">
-          <h3>sách lập trình cơ bản</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p>$30 <i class="fa-solid fa-credit-card"></i></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="./images/books.jpg" alt="">
-        <div class="card-body">
-          <h3>sách lập trình cơ bản</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p>$120 <i class="fa-solid fa-credit-card"></i></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 py-3 py-md-0">
-      <div class="card">
-        <img src="./images/sach-hoc-lap-trinh.jpg" alt="">
-        <div class="card-body">
-          <h3>sách lập trình cơ bản</h3>
-          <h6>Lorem ipsum dolor sit amet.</h6>
-          <div class="rating">
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-            <i class="fa-solid fa-star checked"></i>
-          </div>
-
-          <p>$200 <i class="fa-solid fa-credit-card"></i></p>
-        </div>
-      </div>
-    </div>
+  <div id="viewbooks" class="row" style="margin-top: 30px;">
+   
+      
+     
+   
+  
 
 
   </div>
 
 
 
-  <div class="row" style="margin-top: 30px;">
+  {{!-- <div class="row" style="margin-top: 30px;">
     <div class="col-md-3 py-3 py-md-0">
       <div class="card">
         <img src="./images/books.jpg" alt="">
@@ -210,10 +143,39 @@
     </div>
 
 
-  </div>
+  </div> --}}
 </section>
 <!-- Our Menu End -->
+<script>
+        fetch('/api/books')
+        .then((res) => res.json())
+        .then((res)=>{
+            viewProduct(res)
+        })
+        const viewProduct = (data) =>{
+            let viewData = data.map(d => `
+             <div  class="col-md-3 py-3 py-md-0">
+             <div class="card">
+        <a href="./detail"><img src="${d.img}" alt=""></a>
+        <div class="card-body">
+          <h3>${d.name}</h3>
+          <h6>Lorem ipsum dolor sit amet.</h6>
+          <div class="rating">
+            <i class="fa-solid fa-star checked"></i>
+            <i class="fa-solid fa-star checked"></i>
+            <i class="fa-solid fa-star checked"></i>
+            <i class="fa-solid fa-star checked"></i>
+            <i class="fa-solid fa-star checked"></i>
+          </div>
 
+          <p>$${d.price} <i class="fa-solid fa-credit-card"></i></p>
+        </div>
+         </div>
+         </div>`)
+                document.getElementById("viewbooks").innerHTML= viewData.join("")
+
+        }
+    </script>
 
 
 
