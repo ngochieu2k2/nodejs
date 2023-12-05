@@ -22,3 +22,19 @@ const pool = poolconnectDB()
         res.status(200).json(res1)
     })
  }
+
+ export const search = (req,res)=>{
+    const value = req.params['value']
+    const sql = `select * from category_books where name LIKE '%${value}%';`;
+    pool.query(sql,(err,res1) =>{
+        if(err){
+            res.status(500).json({err:err})    
+            return    
+        }
+        if(res1.length === 0){
+            res.status(404).json({message:'No data result'});
+            return
+        }
+        res.status(200).json(res1)
+    })
+ }

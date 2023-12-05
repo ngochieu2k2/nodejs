@@ -28,9 +28,18 @@ app.get('/', (req, res) => {
      res.render('home');
 })
 
-app.get('/detail', (req, res) => {
+app.get('/detail/:isbn', (req, res) => {
   res.render('detail');
 })
+
+app.get('/product', (req, res) => {
+  res.render('product');
+})
+
+app.get('/search/:value', (req, res) => {
+  res.render('search');
+})
+
 
 app.get('/admin', (req, res) => {
   res.render('admin/home',{layout:"admin"});

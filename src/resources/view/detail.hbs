@@ -1,23 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/detail.css">
-</head>
-<body>
+
     <div class="container mt-5 mb-5">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-10">
+    <div id="detail" class="row d-flex justify-content-center">
+        
+    </div>
+    <script>
+      
+        const url = window.location.href
+        const isbn = url.split('/')[4]
+        
+         fetch(` /api/books/detail/${isbn}`)
+        .then((res) => res.json())
+        .then((res)=>{
+
+            if(res.length !== 0){
+              detailProduct(res)
+            }else{
+              layout404('detail')
+            }
+        })
+        const detailProduct = data =>{
+          
+            let detaildata = data.map(d=>
+                ` 
+                <div class="col-md-10">
             <div class="card">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="images p-3">
-                            <div class="text-center p-4"> <img id="main-image" src="images/books.jpg" width="250" /> </div>
+                            <div class="text-center p-4"> <img id="main-image" src="${d.img}" width="250" /> </div>
                             
                         </div>
                     </div>
@@ -27,9 +37,9 @@
                                 <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1">Back</span> </div> <i class="fa fa-shopping-cart text-muted"></i>
                             </div>
                             <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Orianz</span>
-                                <h5 class="text-uppercase">sách lập trình cơ bản</h5>
+                                <h5 class="text-uppercase">${d.name}</h5>
                                 <div class="price d-flex flex-row align-items-center"> <span class="act-price">$20</span>
-                                    {{!-- <div class="ml-2"> <small class="dis-price">$59</small> <span>40% OFF</span> </div> --}}
+                                    {{!-- <div class="ml-2"> <small class="dis-price">$${d.price}</small> <span>40% OFF</span> </div> --}}
                                 </div>
                             </div>
                             <p class="about">Lorem ipsum dolor sit amet.</p>
@@ -42,7 +52,13 @@
                 </div>
             </div>
         </div>
-    </div>
+                `
+            )
+document.getElementById("detail").innerHTML=detaildata.join("") 
+        }
+    
+    </script>
+
     <section >
   <div class="container my-5 py-5">
     <div class="row d-flex justify-content-center">
@@ -82,7 +98,7 @@
           <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
             <div class="d-flex flex-start w-100">
               <img class="rounded-circle shadow-1-strong me-3"
-                src="https://i.vietgiaitri.com/2020/6/22/bo-tranh-dung-den-dau-long-sau-chia-tay-ban-lan-luot-lam-nhung-gi-tren-mang-xa-hoi-7c3-5026763.jpg" alt="avatar" style="width:50px" />
+                src="https://i.vietgiaitri.com/2020/6/22/bo-tranh-dung-den-dau-long-sau-chia-tay-ban-lan-luot-lam-nhung-gi-tren-mang-xa-hoi-7c3-5026763.jpg" alt="avatar" style="width:50px" height="50px" />
               <div class="form-outline w-100">
                 <textarea class="form-control" id="textAreaExample" rows="4"
                   style="background: #fff;"></textarea>
@@ -101,5 +117,4 @@
 </section>
 </div>
 
-</body>
-</html>
+ <script src="../../public/js/404.js"></script>
