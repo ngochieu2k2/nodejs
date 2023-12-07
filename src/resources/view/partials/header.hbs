@@ -85,7 +85,7 @@
           <a class="nav-link mx-2 text-uppercase" href="#">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link mx-2 text-uppercase" href="#">About</a>
+          <a id="log" onclick="handleLog()" class="nav-link mx-2 text-uppercase" >login</a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
@@ -109,5 +109,18 @@
   const handleSearch = () => { 
     const value = document.getElementById('search').value
     window.location.href=`/search/${value}`
+  }
+  const isLogin = JSON.parse(localStorage.getItem('isLogin') || false)
+  const valueLogin = document.getElementById('log')
+  isLogin === true ? valueLogin.textContent = 'Logout' : valueLogin.textContent = 'Login'
+
+  const handleLog = () => {
+    if(isLogin === true){
+      localStorage.removeItem('id')
+      localStorage.setItem('isLogin',JSON.stringify(false))
+      window.location.href="/login"
+    }else{
+      window.location.href="/login"
+    }
   }
 </script>

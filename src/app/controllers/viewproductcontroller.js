@@ -23,8 +23,4 @@ const pool = poolconnectDB()
     })
  }
 
- export const search = (req,res)=>{
-    const value = req.params['value']
-    const sql = `select * from category_books where name LIKE '%${value}%';`;
-    
- }
+ 

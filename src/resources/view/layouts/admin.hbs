@@ -172,7 +172,12 @@
         </div>
     </div>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    <script>
+        const adminLog = JSON.parse(localStorage.getItem('admLog') || false)
+        if(!adminLog){
+            window.location.href = '/admin/login'
+        }
+    </script>
 </body>
 
     <!-- BOOTSTRAP CDN LINK -->
