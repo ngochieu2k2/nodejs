@@ -6,13 +6,14 @@
     <script>
       
         const url = window.location.href
-        const isbn = url.split('/')[4]
-        
+        const isbn = url.split('/')[5]
+        const idbooks = url.split('/')[4]
          fetch(` /api/books/detail/${isbn}`)
         .then((res) => res.json())
         .then((res)=>{
 
             if(res.length !== 0){
+              console.log(res[0].id)
               detailProduct(res)
             }else{
               layout404('detail')
@@ -56,28 +57,48 @@
             )
 document.getElementById("detail").innerHTML=detaildata.join("") 
         }
-    
-    </script>
-
-    <section >
-  <div class="container my-5 py-5">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-12 col-lg-10 col-xl-8">
-        <div class="card">
+        fetch(`/api/comment/detail/${idbooks}`)
+        .then(res => res.json())
+        .then(res => {
+          if(res.status === 200){
+            viewComment(res.data)
+            return
+          }
+        })
+    //add Commnet
+    /*
+      fetch('/api/comment/add',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({iduser:${iduser},idbooks:${idbooks},value:${value}})
+      })
+      .then(res => res.json())
+      .then(res => console.log(res.message))
+    */
+    const viewComment = (data) => {
+      let view = data.map(e => `<div class="card mt-3">
           <div class="card-body">
             <div class="d-flex flex-start align-items-center">
               <img class="rounded-circle shadow-1-strong me-3"
                 src="https://i.vietgiaitri.com/2020/6/22/bo-tranh-dung-den-dau-long-sau-chia-tay-ban-lan-luot-lam-nhung-gi-tren-mang-xa-hoi-7c3-5026763.jpg" alt="avatar" style="width:50px" />
               <div>
-                <h6 class="fw-bold text-primary mb-1">vô danh</h6>
+                <h6 class="fw-bold text-primary mb-1">${e.name}</h6> <div class="rating">
+            <i style="color:yellow "class="fa-solid fa-star checked"></i>
+            <i style="color:yellow "class="fa-solid fa-star checked"></i>
+            <i style="color:yellow "class="fa-solid fa-star checked"></i>
+            <i style="color:yellow "class="fa-solid fa-star checked"></i>
+            <i style="color:yellow "class="fa-solid fa-star checked"></i>
+          </div>
                 <p class="text-muted small mb-0">
-                  Shared publicly - Jan 2020
+                  ${e.date.split('T')[0]}
                 </p>
               </div>
             </div>
 
             <p class="mt-3 mb-4 pb-2">
-              sách hay quá tui mua 2 cuốn rồi
+              ${e.value}
             </p>
 
             <div class="small d-flex justify-content-start">
@@ -95,7 +116,16 @@ document.getElementById("detail").innerHTML=detaildata.join("")
               </a>
             </div>
           </div>
-          <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+          
+        </div>`)
+    document.getElementById('comment').innerHTML = view.join('')
+    }
+    </script>
+
+    <section >
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-start ">
+      <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
             <div class="d-flex flex-start w-100">
               <img class="rounded-circle shadow-1-strong me-3"
                 src="https://i.vietgiaitri.com/2020/6/22/bo-tranh-dung-den-dau-long-sau-chia-tay-ban-lan-luot-lam-nhung-gi-tren-mang-xa-hoi-7c3-5026763.jpg" alt="avatar" style="width:50px" height="50px" />
@@ -110,7 +140,8 @@ document.getElementById("detail").innerHTML=detaildata.join("")
               <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
             </div>
           </div>
-        </div>
+      <div id="comment" class="col-md-12 col-lg-10 col-xl-8 mt-3">
+        
       </div>
     </div>
   </div>

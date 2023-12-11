@@ -1,6 +1,7 @@
 import path from 'path'
 import express  from 'express'
 import booskrouter from "./routes/product.js"
+import commentrouter from "./routes/comment.js"
 import viewProductRouter from './routes/viewproducts.js'
 import authrouter from './routes/auth.js'
 import morgan  from 'morgan'
@@ -23,13 +24,14 @@ app.set('views', path.join(__dirname,'resources/view'));
 
 app.use('/auth',authrouter)
 app.use("/api/books",booskrouter)
+app.use("/api/comment",commentrouter)
 app.use("/api/books",viewProductRouter)
 
 app.get('/', (req, res) => {
      res.render('home');
 })
 
-app.get('/detail/:isbn', (req, res) => {
+app.get('/detail/:id/:isbn', (req, res) => {
   res.render('detail');
 })
 
